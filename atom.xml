@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-05-16T10:26:41.493Z</updated>
+  <updated>2016-05-16T10:38:39.909Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>bloom-filter</title>
+    <title>Bloom Filter</title>
     <link href="http://yoursite.com/2016/05/16/bloom-filter/"/>
     <id>http://yoursite.com/2016/05/16/bloom-filter/</id>
     <published>2016-05-16T10:21:03.000Z</published>
-    <updated>2016-05-16T10:26:41.493Z</updated>
+    <updated>2016-05-16T10:38:39.909Z</updated>
     
     <content type="html">&lt;p&gt;Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间。&lt;/p&gt;
 &lt;p&gt;###Bloom Filter的原理&lt;br&gt;Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。&lt;br&gt;基本思想：&lt;/p&gt;
