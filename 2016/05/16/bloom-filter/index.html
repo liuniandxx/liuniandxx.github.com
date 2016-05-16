@@ -11,31 +11,23 @@
   
   
     <meta name="description" content="Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间。
-###Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。基本思想：
-
-将">
+####Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。基本思想：">
   
   <meta name="description" content="Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间。
-###Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。基本思想：
-
-将">
+####Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。基本思想：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bloom Filter">
 <meta property="og:url" content="http://yoursite.com/2016/05/16/bloom-filter/index.html">
 <meta property="og:site_name" content="Liuniandxx Blog">
 <meta property="og:description" content="Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间。
-###Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。基本思想：
-
-将">
+####Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。基本思想：">
 <meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$h_i(a)=x,(1 \leq i \leq k, 1 \leq x \leq m)$">
 <meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=(w \leq k)">
-<meta property="og:updated_time" content="2016-05-16T10:38:39.909Z">
+<meta property="og:updated_time" content="2016-05-16T10:46:23.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bloom Filter">
 <meta name="twitter:description" content="Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间。
-###Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。基本思想：
-
-将">
+####Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。基本思想：">
 <meta name="twitter:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$h_i(a)=x,(1 \leq i \leq k, 1 \leq x \leq m)$">
   
     <link rel="alternate" href="/atom.xml" title="Liuniandxx Blog" type="application/atom+xml">
@@ -90,7 +82,7 @@
   <div class="entry">
     
       <p>Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间。</p>
-<p>###Bloom Filter的原理<br>Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。<br>基本思想：</p>
+<p>####Bloom Filter的原理<br>Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。<br>基本思想：</p>
 <ol>
 <li>将长度为m的数组位全部设置为0</li>
 <li>对于集合S中的任意一个元素a，使用k个独立的hash函数进行计算，<img src="http://chart.googleapis.com/chart?cht=tx&chl=$h_i(a)=x,(1 \leq i \leq k, 1 \leq x \leq m)$" style="border:none;">，将数组中x个位置设置为1，对于结合a来说，经过k次hash运算后，会将数组中w位<img src="http://chart.googleapis.com/chart?cht=tx&chl=(w \leq k)" style="border:none;">设置为1</li>
