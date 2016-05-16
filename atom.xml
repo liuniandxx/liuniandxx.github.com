@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-05-16T10:22:51.555Z</updated>
+  <updated>2016-05-16T10:26:41.493Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,15 +20,22 @@
     <link href="http://yoursite.com/2016/05/16/bloom-filter/"/>
     <id>http://yoursite.com/2016/05/16/bloom-filter/</id>
     <published>2016-05-16T10:21:03.000Z</published>
-    <updated>2016-05-16T10:22:51.555Z</updated>
+    <updated>2016-05-16T10:26:41.493Z</updated>
     
-    <content type="html">&lt;p&gt;liunian&lt;/p&gt;
+    <content type="html">&lt;p&gt;Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间。&lt;/p&gt;
+&lt;p&gt;###Bloom Filter的原理&lt;br&gt;Bloom Filter能够很容易的表示集合数据，使用长度为m的数组存储集合信息，使用k个相互独立的hash函数，将集合中的元素映射到m位的数组空间中。&lt;br&gt;基本思想：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;将长度为m的数组位全部设置为0&lt;/li&gt;
+&lt;li&gt;对于集合S中的任意一个元素a，使用k个独立的hash函数进行计算，&lt;img src=&quot;http://chart.googleapis.com/chart?cht=tx&amp;chl=$h_i(a)=x,(1 \leq i \leq k, 1 \leq x \leq m)$&quot; style=&quot;border:none;&quot;&gt;，将数组中x个位置设置为1，对于结合a来说，经过k次hash运算后，会将数组中w位&lt;img src=&quot;http://chart.googleapis.com/chart?cht=tx&amp;chl=(w \leq k)&quot; style=&quot;border:none;&quot;&gt;设置为1&lt;/li&gt;
+&lt;li&gt;对于集合S的每个元素，重复步骤2，就完成了集合S和数组之间的映射&lt;/li&gt;
+&lt;li&gt;完成步骤1，2，3后，查找某个元素b是否在集合S中，使用相同的k个hash函数计算hash值，如果数组所有hash值对应的位都为1，则判定b属于集合S，如果存在数组中hash值对应的位为0，则判定b不属于集合S&lt;/li&gt;
+&lt;/ol&gt;
 </content>
     
     <summary type="html">
     
-      &lt;p&gt;liunian&lt;/p&gt;
-
+      &lt;p&gt;Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间。&lt;/p&gt;
+&lt;p&gt;###Bloom Filter的原理&lt;br&gt;Bloom Filt
     
     </summary>
     
