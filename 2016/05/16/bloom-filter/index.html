@@ -30,7 +30,21 @@ Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用�
 <meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$h_i(a)=x,(1 \leq i \leq k, 1 \leq x \leq m)$">
 <meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=(w \leq k)">
 <meta property="og:image" content="http://yoursite.com/img/bloom_filter.jpg">
-<meta property="og:updated_time" content="2016-05-16T15:24:59.034Z">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$(1 - 1/m)^{n}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$P_{unset}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$P_{unset} = (1 - 1/m)^{nk}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$P_{set}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$P_{set} = 1 - P_{unset}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$P_{allset}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$P_{allset} = (P_{set})^{k} = (1 - (1 - 1/m)^{nk})^{k} \approx = (1 - e^(-kn/m))^k$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$p = e^{-kn/m}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$P_{allset} = (1 - p)^{k}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$k = (-lnp) * (m/n)$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$f = ln(P_{allset})$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$f = -(m/n) * lnp * ln(1 - p)$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$P_{allset}$">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=$m = - (n * lnp) / (ln2)^{2}$">
+<meta property="og:updated_time" content="2016-05-17T14:37:11.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bloom Filter">
 <meta name="twitter:description" content="Bloom Filter(布隆过滤器)是由Howard Bloom在1970年提出的二进制向量数据结构，应用哈希变换来解决集合成员判定（set membership）问题，具有很好的空间和时间效率。
@@ -99,8 +113,17 @@ Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用�
 <li>完成步骤1，2，3后，查找某个元素b是否在集合S中，使用相同的k个hash函数计算hash值，如果数组所有hash值对应的位都为1，则判定b属于集合S，如果存在数组中hash值对应的位为0，则判定b不属于集合S</li>
 </ol>
 <h4 id="Bloom-Filter伪代码实现"><a href="#Bloom-Filter伪代码实现" class="headerlink" title="Bloom Filter伪代码实现"></a>Bloom Filter伪代码实现</h4><figure class="highlight plain"><figcaption><span>[Bloom Filter]</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">BloomFilter(Set s, hashs_k, m)</span><br><span class="line">filter [1..m] = 0</span><br><span class="line">foreach ai in S:</span><br><span class="line">    foreach hj in hashs_k:</span><br><span class="line">        filter[hj(ai)] = 1;</span><br><span class="line">    end foreach</span><br><span class="line">end foreach</span><br><span class="line">return filter</span><br><span class="line"></span><br><span class="line">IsMember(filter, hashs_k, Key)</span><br><span class="line">foreach hj in hashs_k:</span><br><span class="line">    if filter[hj(Key)] == 0:</span><br><span class="line">        return false</span><br><span class="line">return true</span><br></pre></td></tr></table></figure>
-<h4 id="Bloom-Filter误判和概率"><a href="#Bloom-Filter误判和概率" class="headerlink" title="Bloom Filter误判和概率"></a>Bloom Filter误判和概率</h4><img src="/img/bloom_filter.jpg">
+<h4 id="Bloom-Filter误判"><a href="#Bloom-Filter误判" class="headerlink" title="Bloom Filter误判"></a>Bloom Filter误判</h4><img src="/img/bloom_filter.jpg">
 <p>Bloom Filter是通过位数组和hash函数来表征集合的，没有实际存储集合数据，所以空间利用率很高，但是会存在误判(false positive)的情况。Bloom Filter的误判情况只能是将不是集合的元素判定成集合元素，不可能出现将集合元素判定为非集合元素，因为在将该成员映射到位数组空间的过程中，对应的位置已经被设置为1,Bloom Filter不存在将1改为0的情况，所以一定不会发生漏判(false negative)的情况。Bloom Filter只能使用在允许一定程度的误判的场景，不能使用在要求100%准确的判定集合元素的场景。<br>结合上图中的Bloom Filter的例子，上图中位数组的长度为12,使用3个hash函数(每个都有3个箭头指向位数组)，图中表示x1和x2已经映射到位数组中了。假设现在有一个元素x3(不同于x1和x2)，其映射到位数组中，刚好将对应的2,7和11，那么使用IsMember的逻辑将误判x3已经映射到位数组中。</p>
+<h4 id="误判率计算"><a href="#误判率计算" class="headerlink" title="误判率计算"></a>误判率计算</h4><p>Bloom Filter的错误率和三个因素有关：</p>
+<ol>
+<li>集合S元素的个数n</li>
+<li>hash函数的数量k</li>
+<li>位数组的大小m</li>
+</ol>
+<p>由于hash函数是随机的，所以位数组中特定一位被设置为1的概率为1\m,那么特定一位在一次hash中没有被设置为1的概率为1 - 1/m，所有的集合元素在一个hash函数变换后，位数组位没有被设置为1的概率为<img src="http://chart.googleapis.com/chart?cht=tx&chl=$(1 - 1/m)^{n}$" style="border:none;">，对k个hash函数来说，完成集合S中n个元素到位数组映射后，位数组中特定位没有被设置为1的概率为<img src="http://chart.googleapis.com/chart?cht=tx&chl=$P_{unset}$" style="border:none;">。<br><img src="http://chart.googleapis.com/chart?cht=tx&chl=$P_{unset} = (1 - 1/m)^{nk}$" style="border:none;"><br>那么，位数组特定位被设置为1的概率为<img src="http://chart.googleapis.com/chart?cht=tx&chl=$P_{set}$" style="border:none;"><br><img src="http://chart.googleapis.com/chart?cht=tx&chl=$P_{set} = 1 - P_{unset}$" style="border:none;"><br>误判率:误判元素就是被k个hash函数变换位数组对应位都被设置为1,概率为<img src="http://chart.googleapis.com/chart?cht=tx&chl=$P_{allset}$"><br><img src="http://chart.googleapis.com/chart?cht=tx&chl=$P_{allset} = (P_{set})^{k} = (1 - (1 - 1/m)^{nk})^{k} \approx = (1 - e^(-kn/m))^k$"><br>令<img src="http://chart.googleapis.com/chart?cht=tx&chl=$p = e^{-kn/m}$" style="border:none;">，则<img src="http://chart.googleapis.com/chart?cht=tx&chl=$P_{allset} = (1 - p)^{k}$" style="border:none;">,<br>同时<img src="http://chart.googleapis.com/chart?cht=tx&chl=$k = (-lnp) * (m/n)$" style="border:none;">, 令<img src="http://chart.googleapis.com/chart?cht=tx&chl=$f = ln(P_{allset})$">,<br>那么<img src="http://chart.googleapis.com/chart?cht=tx&chl=$f = -(m/n) * lnp * ln(1 - p)$" style="border:none;">，根据对称性可知，当 p = 1/2时，f 取得最小值，同理根据同步性，<img src="http://chart.googleapis.com/chart?cht=tx&chl=$P_{allset}$" style="border:none;">取最小值。<br>当p = 1/2时，k = (m/n) <em> ln2,即当hash函数的个数为(m/n) </em> ln2时，误判率最低。<br>同理允许的最大误判率为p， 那么位数组的大小m，集合S的大小n以及误判率p之间的关系为:<br><img src="http://chart.googleapis.com/chart?cht=tx&chl=$m = - (n * lnp) / (ln2)^{2}$" style="border:none;"></p>
+<h4 id="Bloom-Filter应用"><a href="#Bloom-Filter应用" class="headerlink" title="Bloom Filter应用"></a>Bloom Filter应用</h4><p>Bloom Filter具有极高的空间利用率，尤其数据量极大且容忍一定程度的误判的场景，比如 Google Chrome使用Bloom Filter进行恶意URL的判定;网络爬虫使用它对爬取过的URL进行判定，拼音检查(spelling check)使用它进行单词拼写进行判定等;在数据库领域使用它来实现Bloom Join，即加速两个大表之间的Join过程，等等。</p>
+<h4 id="Bloom-Filter的代码实现"><a href="#Bloom-Filter的代码实现" class="headerlink" title="Bloom Filter的代码实现"></a>Bloom Filter的代码实现</h4><p>Bloom Filter的具体代码实现去Github上搜索，我推荐一个Java实现:<a href="https://github.com/MagnusS/Java-BloomFilter" target="_blank" rel="external">Java-BloomFilter</a>。</p>
 
     
   </div>
@@ -119,7 +142,7 @@ Bloom Filter的原理Bloom Filter能够很容易的表示集合数据，使用�
 
 
 <section id="comment">
-  <h1 class="title">评论</h1>
+  <h1 class="title">Comments</h1>
   <div class="ds-thread" data-title="Bloom Filter">
   </div>
 </section>
