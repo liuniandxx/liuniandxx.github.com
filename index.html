@@ -62,6 +62,63 @@
   <header>
     
       <div class="icon"></div>
+      <a href="/2016/05/29/mongodb-replica/">
+  <time datetime="2016-05-29T12:44:28.000Z">
+    2016-05-29
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2016/05/29/mongodb-replica/">Mongodb主从复制集群</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>复制能够提供数据冗余和提升数据可靠性。相对于单点数据服务器，复制通过在多个数据服务器上存储数据的多个备份，提升可数据库的容错性。<br>Mongodb主从复制集群有两种架构：Master-Slave和Replica Set(复制集)。两种架构都是典型的一主多从的架构。</p>
+<h4 id="Mongodb复制集原理"><a href="#Mongodb复制集原理" class="headerlink" title="Mongodb复制集原理"></a>Mongodb复制集原理</h4><p>Mongodb复制集通过一组mongod实例组成，包含一个Primary节点、多个Secondary节点以及最多一个Abiter节点。Mongodb Driver所有的数据都从Primary节点写入，Secondary节点从Primary节点同步写入数据，保证复制集中所有节点都存储同样的数据集。Secondary节点从Primary节点同步数据是异步的，不保证数据的强一致性，只保证数据的最终一致性，牺牲部分的可用性，提供了数据的高可靠性。<br>下图(来自Mongodb官方文档)是Mongodb复制集的主从同步的过程示意图，包含一个Primary节点和两个Secondary节点，只有Primary节点可以读写，Secondary节点不能读写(Secondary节点默认状态不可读写)，这样就整个复制集而言，数据是强一致性的。<br><img src="/img/replica-set-read-write-operations-primary.png"></p>
+<p>Primary节点接收所有的写操作，同时一个复制集只能有一个Primary节点。Primary节点在操作日志(oplog)上记录数据集的所有的变更。secondary节点复制主节点的操作日志(oplog)，同时将操作日志的操作应用到它们的数据集上，这样确保了Secondary节点和Primary节点的数据的一致性。当Primary节点不可用时，“胜任”的Secondary节点将举行选举来选举自己为新的Primary节点。<br><img src="/img/replica-set-primary-with-two-secondaries.png"></p>
+<p>可以在Mongodb复制集中添加一个额外的mongod实例来充当“仲裁人”，以保证整个复制集中的节点数目为奇数个，Arbiter节点加入保证了在Primary节点选举中确保了新的Primary节点的大多数“选票”。由于Arbiter节点不存储数据，所以相对于Primary节点和Secondary节点，Arbiter节点的不需要特定的硬件配置，部署Arbiter节点的服务器的节点的硬件配置可较低。在Primary选举中，Arbiter节点只具有”投票权“，不具有”被选举权“，即Arbiter节<br>点只是参数选举，但是不会被选举成为Primary节点。<br><img src="/img/replica-set-primary-with-secondary-and-arbiter.png"></p>
+<p>当Primary节点和复制集中的其他节点超过10S没有通信时，可”胜任的“Secondary节点将发起选举和选举自己为新的Primary节点，第一个发起选举并获得大多数选票的Secondary节点将成为新的Primary节点。<br><img src="/img/replica-set-trigger-election.png"></p>
+<p>在选举过程中，复制集中没有Primary节点，复制集不能够处理写操作，复制集中的现存的节点都是只读的，可以处理读操作。<br>影响选举的因素和条件：</p>
+<ol>
+<li>复制选举协议</li>
+<li>心跳(Heartbeats)<br>复制集成员相互之间每隔2s发送一次心跳(pings)。如果一个心跳在10s内没有回应，复制集其他成员将标记未回应的成员不可达。</li>
+<li>成员优先级</li>
+<li>网络分区</li>
+<li>选举节点</li>
+</ol>
+<p>Mongodb复制集的选举使用的Bully Algorithm(霸道选举算法)，算法的具体表述为：</p>
+<ol>
+<li>任意一个节点都可以发起选举</li>
+<li>节点P给所有的更大ID的节点发送Election(选举)消息，等待Ok反馈消息<br>(1)如果没有收到更大ID节点的返回的Ok消息，节点P就成为了coordinator节点，同时给所有的更小ID节点发送Coordinator消息<br>(2)如果收到更大ID节点返回的Ok消息，节点P选举中止，等待Coordinator消息</li>
+<li>如果一个节点收到了Election消息<br>(1)如果改节点是最大的ID节点，立即反馈发送Coordinator消息<br>(2)其他情况，立即反馈发送Ok消息</li>
+<li>如果一个节点收到Coordinator消息，它就将发送者当作coorinator节点</li>
+<li>最后胜出的节点就是coordinator节点</li>
+</ol>
+<p>Bully算法具体执行过程见下图:<br><img src="/img/bully-algorithm.jpg"></p>
+<h4 id="Mongodb-Master-Slave"><a href="#Mongodb-Master-Slave" class="headerlink" title="Mongodb Master-Slave"></a>Mongodb Master-Slave</h4><p>Mongodb Master-Slave架构在Mongodb3.2前都可以使用。<br>Master-Slave架构相对于复制集架构，主要在于配置简单。如果当前已经有一个mongod实例，想定义另外一个mongod实例为其Slave节点时，使用mongo –slave –source host:port即可。<br>Master-Slave架构在Primary节点宕机后，整个集群将不可用，没有提供自动选举的功能，不能保证集群的高可靠。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
       <a href="/2016/05/16/bloom-filter/">
   <time datetime="2016-05-16T10:21:03.000Z">
     2016-05-16
