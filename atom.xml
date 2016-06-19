@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-19T15:01:29.092Z</updated>
+  <updated>2016-06-19T15:32:28.280Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="http://yoursite.com/2016/06/18/trie/"/>
     <id>http://yoursite.com/2016/06/18/trie/</id>
     <published>2016-06-18T08:22:25.000Z</published>
-    <updated>2016-06-19T15:01:29.092Z</updated>
+    <updated>2016-06-19T15:32:28.280Z</updated>
     
     <content type="html">&lt;p&gt;字符串查找可以使用通用的查找算法（排序二分、二叉查找树、红黑树、散列表），但是可以利用字符串的性质，开发更高效的算法–Trie树(单词查找树)。&lt;br&gt;Trie树的性能在&amp;lt;&amp;lt;算法&amp;gt;&amp;gt;中具有如下描述：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;具体来说，Trie树算法在一般应用场景中（甚至对于巨型的符号表）都能取得以下性能：&lt;br&gt;查找命中所需的时间与被查找的键的长度成正比;&lt;br&gt;查找未命中只需要检查若干个字符。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h5 id=&quot;单词查找树&quot;&gt;&lt;a href=&quot;#单词查找树&quot; class=&quot;headerlink&quot; title=&quot;单词查找树&quot;&gt;&lt;/a&gt;单词查找树&lt;/h5&gt;&lt;p&gt;Trie树定义&lt;br&gt;单词查找树是由链接的点组成的数据结构。&lt;/p&gt;
+&lt;h4 id=&quot;单词查找树&quot;&gt;&lt;a href=&quot;#单词查找树&quot; class=&quot;headerlink&quot; title=&quot;单词查找树&quot;&gt;&lt;/a&gt;单词查找树&lt;/h4&gt;&lt;p&gt;Trie树定义&lt;br&gt;单词查找树是由链接的点组成的数据结构。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;单词查找树有且只有一个根结点，没有任何结点指向根结点&lt;/li&gt;
 &lt;li&gt;除根节点外，每个节点都有且只有一个指向它的结点（指向它的节点称为它的父结点）&lt;/li&gt;
@@ -41,7 +41,7 @@
 &lt;li&gt;一棵单词查找树中链接的总数在RN和RNw之间，其中w为键的平均长度。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;其实可以发现，上面的单词查找树在时间上具有很好的性能，但是在空间上，特别是当字母表大小R很大时，空间利用率不高，空间需求大，&lt;br&gt;在实践中，限制“普通”的单词查找树的使用。&lt;/p&gt;
-&lt;h5 id=&quot;三向单词查找树&quot;&gt;&lt;a href=&quot;#三向单词查找树&quot; class=&quot;headerlink&quot; title=&quot;三向单词查找树&quot;&gt;&lt;/a&gt;三向单词查找树&lt;/h5&gt;</content>
+&lt;h4 id=&quot;三向单词查找树&quot;&gt;&lt;a href=&quot;#三向单词查找树&quot; class=&quot;headerlink&quot; title=&quot;三向单词查找树&quot;&gt;&lt;/a&gt;三向单词查找树&lt;/h4&gt;</content>
     
     <summary type="html">
     
