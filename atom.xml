@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-22T00:58:46.632Z</updated>
+  <updated>2016-08-13T16:17:29.883Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,22 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SQLAlchemy: ORM for python</title>
+    <link href="http://yoursite.com/2016/08/14/SQLAlchemy-ORM-for-python/"/>
+    <id>http://yoursite.com/2016/08/14/SQLAlchemy-ORM-for-python/</id>
+    <published>2016-08-13T16:17:29.000Z</published>
+    <updated>2016-08-13T16:17:29.883Z</updated>
+    
+    <content type="html"></content>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>trie(单词查找树)</title>
